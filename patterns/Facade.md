@@ -35,9 +35,16 @@ class SmsLibrary
 
 که برای استفاده از آن باید چنین کدی بنویسیم:
 ```sh
-$client_id = config('sms.client_id');
-$client_secret = config('sms.client_secret');
-$sms_driver = config('sms.driver');
+$config = [
+    'sms_client_id'=>'...',
+    'sms_client_secret'=>'...',
+    'sms_driver'=>'...,
+
+];
+
+$client_id = config['sms_client_id'];
+$client_secret = config['sms_client_secret'];
+$sms_driver = config['sms_driver'];
 
 $sms = new SmsLibrary($client_id, $client_secret, $sms_driver);
 
