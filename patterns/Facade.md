@@ -64,9 +64,9 @@ class SmsFacade
 {
     public static send($text, $recipient)
     {
-        $client_id = config('sms.client_id');
-        $client_secret = config('sms.client_secret');
-        $sms_driver = config('sms.driver');
+        $client_id = config['sms_client_id'];
+        $client_secret = config['sms_client_secret'];
+        $sms_driver = config['sms_driver'];
     
         $sms = new SmsLibrary($client_id, $client_secret, $sms_driver);
     
