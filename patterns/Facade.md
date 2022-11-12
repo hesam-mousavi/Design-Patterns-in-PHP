@@ -53,8 +53,10 @@ $sms.send('Welcome. Our app is great!');
 به static بودن متد send توجه نمایید.
 
 ```sh
-class SmsFacade {
-    public static send(text, recipient) {
+class SmsFacade
+{
+    public static send(text, recipient)
+    {
         $client_id = config('sms.client_id');
         $client_secret = config('sms.client_secret');
         $sms_driver = config('sms.driver');
@@ -63,7 +65,7 @@ class SmsFacade {
     
         $sms.recipient($recipient);
         $sms.send($text);
-  }
+    }
 }
 ```
 حالا در هر جایی از برنامه که می خواهیم پیام ارسال کنیم کافیست که از این کلاس به صورت زیر استفاده کنیم.
