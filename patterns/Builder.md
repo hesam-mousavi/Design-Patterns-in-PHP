@@ -39,7 +39,7 @@ interface  QueryBuilder {
  یعنی:
 
  ```sh
-obj->table()->where()->select()->getQuery()
+$obj->table()->where()->select()->getQuery()
  ```
 
  مرحله بعد باید برای هر نوع دیتابیس یک کلاس اختصاصی بسازیم که از این اینترفیس تبعیت می‌کنند. ابتدا برای MySQL می‌نویسیم:
