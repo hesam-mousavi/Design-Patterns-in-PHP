@@ -39,7 +39,7 @@ $client_id = config('sms.client_id');
 $client_secret = config('sms.client_secret');
 $sms_driver = config('sms.driver');
 
-$sms = new SmsLibrary(client_id, client_secret, sms_driver);
+$sms = new SmsLibrary($client_id, $client_secret, $sms_driver);
 
 $sms.recipient('+989...');
 $sms.send('Welcome. Our app is great!');
