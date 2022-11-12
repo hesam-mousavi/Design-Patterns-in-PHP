@@ -168,3 +168,113 @@ builder->table('posts')->where(...)->select(...)->find(...);
 ۳. می‌توانیم بی‌نهایت Builder بسازیم بدون اینکه تغییری در کدها به وجود بیاوریم (اصل دوم سالید: Open/Closed)
 
 ۴. قسمت Client وابسته به Abstraction هست، نه کلاس‌های واقعی یا Concrete (اصل پنجم سالید: Dependency Inversion)
+
+## کد کامل برنامه:
+```sh
+interface  QueryBuilder
+{
+    public function table($table): QueryBuilder;
+
+    public function select($cols): QueryBuilder;
+
+    public function limit($limits): QueryBuilder;
+
+    public function where($wheres): QueryBuilder;
+
+    public function getQuery(): string;
+
+    /* Other SQL Methods  */
+}
+
+class MySqlQueryBuilder implements QueryBuilder
+{
+    private string $query;
+    private string $table_name;
+
+    public function __construct()
+    {
+        $this->query = '';
+    }
+
+    public function table($table): QueryBuilder
+    {
+        $this->table_name = $table;
+        return $this;
+    }
+
+    public function select($cols): QueryBuilder
+    {
+        // TODO: Implement select() method.
+        return $this;
+    }
+
+    public function limit($limits): QueryBuilder
+    {
+        // TODO: Implement limit() method.
+        return $this;
+    }
+
+    public function where($wheres): QueryBuilder
+    {
+        // TODO: Implement where() method.
+        return $this;
+    }
+
+    public function getQuery(): string
+    {
+        // TODO: Implement getQuery() method.
+        return "This is a MySQL query";
+    }
+}
+
+class MongoDbQueryBuilder implements QueryBuilder
+{
+
+    public function table($table): QueryBuilder
+    {
+        // TODO: Implement table() method.
+        return $this;
+    }
+
+    public function select($cols): QueryBuilder
+    {
+        // TODO: Implement select() method.
+        return $this;
+    }
+
+    public function limit($limits): QueryBuilder
+    {
+        // TODO: Implement limit() method.
+        return $this;
+    }
+
+    public function where($wheres): QueryBuilder
+    {
+        // TODO: Implement where() method.
+        return $this;
+    }
+
+    public function getQuery(): string
+    {
+        // TODO: Implement getQuery() method.
+        return "This is a MongoDb query";
+    }
+}
+
+function client(QueryBuilder $builder)
+{
+    $obj = new $builder;
+    $query = $obj->table('posts')->where('id', 429)->limit(10)->select(['id', 'title'])->getQuery();
+
+    print $query;
+}
+
+$config = [
+    'db1'=>'MySqlQueryBuilder',
+    'db2'=>'MongoDbQueryBuilder',
+
+];
+
+client(new $config['db1']);
+client(new $config['db2']);
+```
