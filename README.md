@@ -16,4 +16,6 @@
 
 ---
 ### لیست دیزاین پترن ها:
-1. [singleton](patterns/Singleton.md)
+1. [Singleton](patterns/Singleton.md)
+2. [Facade](patterns/Facade.md)
+
