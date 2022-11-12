@@ -41,8 +41,8 @@ $sms_driver = config('sms.driver');
 
 $sms = new SmsLibrary($client_id, $client_secret, $sms_driver);
 
-$sms.recipient('+989...');
-$sms.send('Welcome. Our app is great!');
+$sms->recipient('+989...');
+$sms->send('Welcome. Our app is great!');
 ```
 
 همان طور که دقت کردید برای ارسال یک پیام باید این همه تنظیمات انجام داد و کار موقعی سختتر می شود که بخواهیم در چند جای مختلف برنامه چنین کاری انجام دهیم.<br>
@@ -55,7 +55,7 @@ $sms.send('Welcome. Our app is great!');
 ```sh
 class SmsFacade
 {
-    public static send(text, recipient)
+    public static send($text, $recipient)
     {
         $client_id = config('sms.client_id');
         $client_secret = config('sms.client_secret');
@@ -63,17 +63,17 @@ class SmsFacade
     
         $sms = new SmsLibrary($client_id, $client_secret, $sms_driver);
     
-        $sms.recipient($recipient);
-        $sms.send($text);
+        $sms->recipient($recipient);
+        $sms->send($text);
     }
 }
 ```
 حالا در هر جایی از برنامه که می خواهیم پیام ارسال کنیم کافیست که از این کلاس به صورت زیر استفاده کنیم.
 
 ```sh
-SmsFacade.send('Welcome!', '+989...');
+SmsFacade::send('Welcome!', '+989...');
 // ...
-SmsFacade.send('Your 2FA code', '+001...');
+SmsFacade::send('Your 2FA code', '+001...');
 ```
 
 این هم از الگوی Facade، اما همونطور که احتمالا متوجه شدید یکی از ایرادات این الگو این هست که قدرت شخصی سازی و استفاده از همه امکانات کتابخانه شخصی سازی شده را از ما میگیرد و باید به تنظیمات از پیش تعیین شده نویسنده کلاس Facade بسنده کنیم.
