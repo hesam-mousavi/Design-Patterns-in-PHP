@@ -6,7 +6,7 @@
 قطعه کد زیر را در نظر بگیرید:
 
 ```php
-class Db
+class DB
 {
     private $conn;
 
