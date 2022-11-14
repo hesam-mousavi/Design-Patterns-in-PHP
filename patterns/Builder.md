@@ -3,7 +3,7 @@
 ---
  ساختن آبجکت‌ها همیشه به سادگی یک new کردن نیست. گاهی وقت‌ها ساختن یک آبجکت و آماده کردن آن برای استفاده، به پارامترها و ورودی‌های زیادی بستگی دارد. برای مثال در بیشتر زبان‌ها از Query Builder برای ساختن کوئری‌های SQL استفاده می شود.
 
- ```sh
+ ```php
 $user = $db->users()->find(...);
 // or
 $post = $db->posts()->where(...)->select(...)->find(...);
@@ -20,7 +20,7 @@ $post = $db->posts()->where(...)->select(...)->find(...);
 
 ابتدا یک اینترفیس می‌سازیم و این مراحل را به صورت متد در آن قرار می‌دهیم:
 
-```sh
+```php
 interface  QueryBuilder {
     public function table($table):QueryBuilder;
     public function select($cols):QueryBuilder;
@@ -38,13 +38,13 @@ interface  QueryBuilder {
 
  یعنی:
 
- ```sh
+ ```php
 $obj->table()->where()->select()->getQuery()
  ```
 
  مرحله بعد باید برای هر نوع دیتابیس یک کلاس اختصاصی بسازیم که از این اینترفیس تبعیت می‌کنند. ابتدا برای MySQL می‌نویسیم:
 
- ```sh
+ ```php
 class MySqlQueryBuilder implements QueryBuilder
 {
     private string $query;
@@ -89,7 +89,7 @@ class MySqlQueryBuilder implements QueryBuilder
 
  متدهای کلاس MySqlQueryBuilder باید دستورات خام MySQL را تولید کنند. مثلاً متد select برای MySQL باید چنین چیزی تولید کند:
 
- ```sh
+ ```sql
 SELECT col1, col2 FROM table_name
  ```
 
@@ -98,7 +98,7 @@ SELECT col1, col2 FROM table_name
 
  به عنوان مثال برای mongodb:
 
- ```sh
+ ```php
 class MongoDbQueryBuilder implements QueryBuilder {
     // ***
 }
@@ -108,7 +108,7 @@ class MongoDbQueryBuilder implements QueryBuilder {
 
  خب حالا وقت این هست که از این کد استفاده کنیم.<br>ابتدا قسمت Client (قسمت اصلی برنامه‌ی ما که از این الگو استفاده می‌کند) را می‌نویسیم:
 
-```sh
+```php
 function client(QueryBuilder $builder)
 {
     $obj = new $builder;
@@ -122,7 +122,7 @@ function client(QueryBuilder $builder)
  برای همین، مفهوم Abstraction اینجا به کمک ما می آید.<br>
  Client بدون اطلاع از نوع دیتابیس دارد کار خودش را انجام میدهد. اما به هر حال جایی از برنامه باید مشخص کنیم که چه نوع دیتابیسی می‌خواهیم. مشخص کردن نوع دیتابیس یا به طور کلی نوع Builder، قبل از اجرای واقعی قسمت Client اتفاق می‌افتد:
 
- ```sh
+ ```php
  $config = [
     'db1'=>'MySqlQueryBuilder',
     'db2'=>'MongoDbQueryBuilder',
@@ -135,7 +135,7 @@ client(new $config['db2']);
 
  بدون استفاده از این الگو باید دست به دامن توابعی با تعداد پارامترهای زیاد می شدیم:
 
- ```sh
+ ```php
 function makeMySqlQuery($table_name, $type, $constraints, $cols, $values, $limit = null, $offset = 0)
 {
   $query = '';
@@ -157,7 +157,7 @@ makeMySqlQuery('post', 'update', 'id = 900', ['name'], ['hesam'], 15);
 
 ۱. با تعریف کردن مراحل و ترکیب کردن آنها به طور دلخواه، بدون دستکاری کد می‌توانیم آبجکت‌های متنوع و با خروجی کاملاً متفاوتی داشته باشیم. برای مثال کد زیر را در نظر بگیرید:
 
-```sh
+```php
 builder->table('posts')->where(...)->select(...)->find(...);
 ```
 بسته به نوع کانفیگ برنامه، خروجی این کد می‌تواند یک نمونه از کلاس MySql باشه یا MongoDb که با هم دیگر تفاوت خواهند داشت. بنابراین، مراحل یکسان، خروجی متفاوت.
@@ -170,7 +170,7 @@ builder->table('posts')->where(...)->select(...)->find(...);
 ۴. قسمت Client وابسته به Abstraction هست، نه کلاس‌های واقعی یا Concrete (اصل پنجم سالید: Dependency Inversion)
 
 ## کد کامل برنامه:
-```sh
+```php
 interface  QueryBuilder
 {
     public function table($table): QueryBuilder;
