@@ -5,7 +5,7 @@
 
 قطعه کد زیر را در نظر بگیرید:
 
-```sh
+```php
 class Db
 {
     private $conn;
@@ -20,12 +20,12 @@ class Db
 ```
 
 // User.file
-```sh
+```php
 $db = new DB();
 $users = $db.query('...');
 ```
 // Post.file
-```sh
+```php
 $db = new DB();
 $posts = $db.query('...');
 ```
@@ -37,7 +37,8 @@ $posts = $db.query('...');
 # پیاده‌سازی الگوی سینگلتون برای کلاس DB:
 
 ابتدا یک پراپرتی private از نوع static برای نگهداری نمونه ساخته شده از کلاس ایجاد می کنیم.
-```sh
+
+```php
 class DB
 {
     private static $instance = null;
@@ -47,7 +48,7 @@ class DB
 ```
 سپس باید متد سازنده کلاس را هم به صورت private تعریف کرد تا نتوان در بیرون از برنامه از روی کلاس DB نمونه ساخت.
 
-```sh
+```php
 class DB
 {
     private static $instance = null;
@@ -62,7 +63,7 @@ class DB
 ```
 حالا یک متد از نوع استاتیک می سازیم که مسئول تولید نمونه از کلاس می باشد. دلیل تعریف متد به صورت استاتیک این هست که بتوانیم بدون ساخت نمونه از کلاس به این متد دسترسی داشته باشیم.
 
-```sh
+```php
 class DB
 {
     private static $instance = null;
@@ -87,7 +88,7 @@ class DB
 
 نمونه کامل کد را ببینید:
 
-```sh
+```php
 class DB
 {
     private $conn;
