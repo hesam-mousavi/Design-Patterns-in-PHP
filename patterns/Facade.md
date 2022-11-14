@@ -13,7 +13,7 @@
 
 کدهایی که این کتابخانه برای ارسال پیام به ما ارائه میدهد به این صورت می باشد:
 
-```sh
+```php
 class SmsLibrary
 {
     public function __construct($client_id, $client_secret, $driver)
@@ -34,11 +34,11 @@ class SmsLibrary
 ```
 
 که برای استفاده از آن باید چنین کدی بنویسیم:
-```sh
+```php
 $config = [
     'sms_client_id'=>'...',
     'sms_client_secret'=>'...',
-    'sms_driver'=>'...,
+    'sms_driver'=>'...',
 
 ];
 
@@ -59,7 +59,7 @@ $sms->send('Welcome. Our app is great!');
 ابتدا یک کلاس می سازیم. این کلاس همان کلاس Facade ما هست که می خواهیم جزئیات را درون آن بنویسیم.<br>
 به static بودن متد send توجه نمایید.
 
-```sh
+```php
 class SmsFacade
 {
     public static send($text, $recipient)
@@ -77,7 +77,7 @@ class SmsFacade
 ```
 حالا در هر جایی از برنامه که می خواهیم پیام ارسال کنیم کافیست که از این کلاس به صورت زیر استفاده کنیم.
 
-```sh
+```php
 SmsFacade::send('Welcome!', '+989...');
 // ...
 SmsFacade::send('Your 2FA code', '+001...');
